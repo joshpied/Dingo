@@ -1,0 +1,39 @@
+<div style="text-align: center">
+  <button *ngIf="userChoices.length === 9"
+          mat-raised-button color="primary"
+          style="position: absolute;"
+          [routerLink]="['/dingo-grid', userChoices]">
+      Lets play Dingo!!
+  </button>
+</div>
+
+<div class="example-container">
+  <h2>Options</h2>
+
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="options"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-list selection-list"
+        (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of options" cdkDrag>
+              {{item}}
+          </div>
+      </div>
+</div>
+
+<div class="example-container">
+  <h2>My Dingo Card</h2>
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="userChoices"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of userChoices" cdkDrag>
+                {{item}}
+            </div>
+      </div>
+</div>

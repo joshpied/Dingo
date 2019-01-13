@@ -1,0 +1,9 @@
+<h2 style="text-align: center;">{{youGotADingo ? "Bloody hell you got a DINGO!!!" : "Here's your picks:"}}</h2>
+<div class="grid">
+  <div class="cell" *ngFor="let choice of userChoices; let i = index">
+    <h2>{{choice.name}}</h2>
+    <mat-checkbox (change)="markSelection(choice.value, i)">
+      {{choice.marked ? "He did this one!":""}}
+    </mat-checkbox>
+  </div>
+</div>
