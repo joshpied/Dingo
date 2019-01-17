@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {DingoOptionsService} from '../dingo-options.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dingo-selection',
@@ -8,55 +10,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 })
 export class DingoSelectionComponent implements OnInit {
 
-  options = [
-    'Condescension',
-    'Mentions your parents',
-    'Thinks you are straight out of highschool',
-    'Introduces the concept of starting an assignment early',
-    'Sabre',
-    'Gore/Goretex',
-    'Lines of Code',
-    'Rhetorical Question (but expects an answer)',
-    'Poorly Formatted Slides',
-    'Makes up an equation',
-    'Cohesion/Coupling',
-    'Subroutine',
-    'Schema',
-    'Macro',
-    'Insults women',
-    'Cats',
-    'Talks about an obsolete technology',
-    'Disses phone plans',
-    'Says we can\'t manage money/time',
-    'Does anyone read the news',
-    'Triple bottom line',
-    'Mentions Surge',
-    'Attendance',
-    'Arrogance',
-    'Excel',
-    'Unrelated Anecdote/Uninteresting Fact',
-    'Hockey',
-    'Makes us watch a video of himself',
-    'Checks if we logged into elearn',
-    'Exposes confidential student information',
-    'Racism/Stereotypes',
-    'WHERE THE FUCK IS [Specific Student]',
-    '"Are you in my class?"',
-    'Attendance only content',
-    'Mentions his Boss',
-    'Insults his wife',
-    'Talks shit about Capstone',
-    'My International Friends',
-    'Says the exact number of people who are supposed to be in class',
-  ];
-
-  userChoices = [
-    // 'Get up',
-    // 'Brush teeth',
-    // 'Take a shower',
-    // 'Check e-mail',
-    // 'Walk dog'
-  ];
+  options = [];
+  userChoices = [];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -68,9 +23,36 @@ export class DingoSelectionComponent implements OnInit {
         event.currentIndex);
     }
   }
-  constructor() { }
+  constructor(private _dataService: DingoOptionsService, private router: Router) {
+    this.options = _dataService.getDingoOptions();
+    // console.log(this.options);
+  }
 
   ngOnInit() {
   }
 
+  randomizeChoices() {
+    const randomValues = this.randomRange(9);
+    console.log(randomValues);
+    randomValues.forEach((value, index) => {
+        this.userChoices[index] = this.options[value];
+    });
+    this.router.navigate(['/', 'dingo-grid', this.userChoices]);
+  }
+
+  randomRange = length => {
+    const results = [];
+    const possibleValues = Array.from({ length }, () => Math.floor(Math.random() * (this.options.length - 1)));
+
+    for (let i = 0; i < length; i += 1) {
+      const possibleValuesRange = length - (length - possibleValues.length);
+      const randomNumber = Math.floor(Math.random() * possibleValuesRange);
+      const normalizedRandomNumber = randomNumber !== possibleValuesRange ? randomNumber : possibleValuesRange;
+
+      const [nextNumber] = possibleValues.splice(normalizedRandomNumber, 1);
+
+      results.push(nextNumber);
+    }
+    return results;
+  }
 }

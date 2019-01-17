@@ -1,9 +1,13 @@
 <div style="text-align: center">
   <button *ngIf="userChoices.length === 9"
           mat-raised-button color="primary"
-          style="position: absolute;"
+          style="position: absolute; margin-left: 150px;"
           [routerLink]="['/dingo-grid', userChoices]">
       Lets play Dingo!!
+  </button>
+  <button mat-raised-button color="primary"
+          (click)="randomizeChoices()">
+      Randomize me!
   </button>
 </div>
 

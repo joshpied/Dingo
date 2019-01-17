@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -7,7 +7,6 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./dingo-grid.component.css']
 })
 export class DingoGridComponent implements OnInit {
-
   rawParams: object;
   userChoices: any[] = [];
   youGotADingo = false;
@@ -18,11 +17,11 @@ export class DingoGridComponent implements OnInit {
   }
 
   mapParamsToArray(data) {
-    const tempArray = Object.values(data);
-    tempArray.forEach((choice, index) => {
-      this.userChoices.push({name: choice, marked: false, value: index + 1});
-    });
-    console.log(this.userChoices);
+      const tempArray = Object.values(data);
+      tempArray.forEach((choice, index) => {
+        this.userChoices.push({name: choice, marked: false, value: index + 1});
+      });
+      console.log(this.userChoices);
   }
 
   markSelection(markedValue, index) {

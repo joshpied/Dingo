@@ -8,14 +8,13 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { DingoGridComponent } from './dingo-grid/dingo-grid.component';
 import {DingoSelectionComponent} from './dingo-selection/dingo-selection.component';
-// import {DingoSelectionModule} from './dingo-selection/dingo-selection.module';
+import {DingoOptionsService} from './dingo-options.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     DingoGridComponent,
     DingoSelectionComponent
-    // DingoSelectionModule
   ],
   imports: [
     BrowserModule,
@@ -26,6 +25,7 @@ import {DingoSelectionComponent} from './dingo-selection/dingo-selection.compone
     DragDropModule
   ],
   providers: [
+    DingoOptionsService
   ],
   bootstrap: [AppComponent]
 })
